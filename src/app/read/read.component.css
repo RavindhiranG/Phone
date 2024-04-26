@@ -1,0 +1,54 @@
+.filter-section {
+    margin-bottom: 20px;
+}
+
+.filter-label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 14px;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.phone-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.phone-table th,
+.phone-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.phone-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.phone-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.phone-row:hover {
+    background-color: #f0f0f0;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

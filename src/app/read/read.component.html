@@ -1,0 +1,53 @@
+<div class="filter-section">
+    <label class="filter-label">Show:</label>
+    <select class="filter-select" [(ngModel)]="filterOption" (change)="applyFilters()">
+      <option value="full">Full brand names</option>
+      <option value="middleLetters">Middle letters of brand</option>
+      <option value="black">Filter by Color Black</option>
+      <option value="lastTwo">Show Last Two Objects</option>
+      <option value="primeIDs">Filter by Prime IDs</option>
+      <option value="nonDuplicatedRatings">Get Non-Duplicated Ratings</option>
+      <option value="ascendingPrice">Sort by Ascending Price</option>
+      <option value="descendingPrice">Sort by Descending Price</option>
+      <option value="greyEndingG">Brand ending with 'g' to grey</option>
+    </select>
+</div>
+  
+<div class="table-container">
+    <table class="phone-table">
+        <tr>
+            <th>ID</th>
+            <th>BRAND</th>
+            <th>PRICE</th>
+            <th>COLOR</th>
+            <th>RATING</th>
+            <th *ngIf="filterOption === 'middleLetters'">Middle</th>
+            <th>Action</th> <!-- Add a new header for the action column -->
+        </tr>
+        <tbody>
+            <ng-container *ngFor="let phone of filteredPhones">
+                <tr class="phone-row">
+                    <td>{{ phone.id }}</td>
+                    <td>{{ filterOption === 'middleLetters' ? getMiddleLetters(phone.brand) : phone.brand }}</td>
+                    <td>{{ phone.price }}</td>
+                    <td>{{ phone.color }}</td>
+                    <td>{{ phone.rating }}</td>
+                    <td *ngIf="filterOption === 'middleLetters'">{{ getMiddleLetters(phone.brand) }}</td>
+                    <td>
+                        <button (click)="deletePhone(phone.id)">Delete</button> 
+                        <button (click)="showUpdateForm(phone)">Update</button>
+                    </td>
+                </tr>
+                <tr *ngIf="selectedPhone && selectedPhone.id === phone.id"> <!-- Show update form only for the selected phone -->
+                    <td colspan="6"> <!-- colspan should match the number of columns in the table -->
+                        <app-update-phone [phone]="selectedPhone"></app-update-phone> <!-- Pass the selected phone to the update form component -->
+                    </td>
+                </tr>
+                  
+            </ng-container>
+        </tbody>
+    </table>
+    <div *ngIf="updateSuccessMessage" class="success-message">
+        {{ updateSuccessMessage }}
+    </div>
+</div>

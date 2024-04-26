@@ -1,0 +1,66 @@
+<div class="form-container" *ngIf="showCreateForm">
+    <h2 class="form-title">Create New Phone</h2>
+    <form class="phone-form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="brand" class="form-label">Brand:</label>
+            <input type="text" id="brand" name="brand" [(ngModel)]="phone.brand" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price" class="form-label">Price:</label>
+            <input type="number" id="price" name="price" [(ngModel)]="phone.price" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="color" class="form-label">Color:</label>
+            <input type="text" id="color" name="color" [(ngModel)]="phone.color" class="form-input" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rating" class="form-label">Rating:</label>
+            <input type="number" id="rating" name="rating" [(ngModel)]="phone.rating" class="form-input" required>
+        </div>
+
+        <button type="submit" [disabled]="specialButtonClicked && phone.price < 70000" class="form-button">Submit</button>
+        <br>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="createPhone" [(ngModel)]="submitClicked" class="checkbox"> Normal
+        </label>
+        <br>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="createPhonePrice" [(ngModel)]="specialButtonClicked" class="checkbox"> Price >= 70000
+        </label>
+        <br>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="noColorPalindrome" [(ngModel)]="noColorPalindromeChecked" class="checkbox"> No Palindrome Color
+        </label>
+        <br>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="ratingAbove8" [(ngModel)]="ratingAbove8Checked" class="checkbox"> Rating above 8 only
+        </label>
+        <br>
+
+        <label class="checkbox-label">
+            <input type="checkbox" name="brandStartsWithS" [(ngModel)]="brandStartsWithSChecked" class="checkbox"> Brand starts with S only
+        </label>
+
+        <!-- Error message for price validation -->
+        <p *ngIf="specialButtonClicked && phone.price < 70000" class="error-message">Price must be greater than or equal to 70000.</p>
+        <!-- Error message for color palindrome validation -->
+        <p *ngIf="noColorPalindromeChecked && isColorPalindrome(phone.color)" class="error-message">Color cannot be a palindrome.</p>
+        <!-- Error message for rating validation -->
+        <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
+        <!-- Error message for brand name validation -->
+        <p *ngIf="errorMessage === 'BrandException'" class="error-message">{{ errorMessage }}</p>
+    </form>
+</div>
+
+<div class="success-message" *ngIf="postSuccess">
+    <p>ADDED SUCCESSFULLY</p>
+</div>
+
+<button (click)="toggleCreateForm()" class="toggle-button">Add</button>
